@@ -38,18 +38,18 @@ const classes = [
     border-color: var(--color-line);
   }
 
-  /* ocean — primary + bg */
+  /* ocean — cool accent */
   .ds-badge--ocean {
-    background-color: var(--color-primary);
-    color: var(--color-bg);
-    border-color: var(--color-primary);
+    background-color: color-mix(in oklch, var(--color-accent) 18%, var(--color-surface));
+    color: var(--color-accent);
+    border-color: color-mix(in oklch, var(--color-accent) 40%, var(--color-line));
   }
 
-  /* gold — accent bg + accent-ink text */
+  /* gold — warm primary */
   .ds-badge--gold {
-    background-color: var(--color-accent);
-    color: var(--color-accent-ink);
-    border-color: var(--color-accent);
+    background-color: color-mix(in oklch, var(--color-primary) 18%, var(--color-surface));
+    color: var(--color-primary);
+    border-color: color-mix(in oklch, var(--color-primary) 40%, var(--color-line));
   }
 
   /* green */

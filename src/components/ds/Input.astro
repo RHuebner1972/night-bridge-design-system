@@ -6,6 +6,8 @@ interface Props {
   placeholder?: string;
   helper?: string;
   error?: string;
+  /** Static showcase error — not live validation (uses role="note", not alert). */
+  errorSpecimen?: boolean;
   class?: string;
 }
 
@@ -16,6 +18,7 @@ const {
   placeholder,
   helper,
   error,
+  errorSpecimen = false,
   class: className = "",
 } = Astro.props;
 
@@ -40,7 +43,13 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
     <span id={helperId} class="ds-input__helper">{helper}</span>
   )}
   {error && (
-    <span id={errorId} class="ds-input__error" role="alert">{error}</span>
+    <span
+      id={errorId}
+      class="ds-input__error"
+      role={errorSpecimen ? "note" : "alert"}
+    >
+      {errorSpecimen ? `Example · ${error}` : error}
+    </span>
   )}
 </div>
 
@@ -54,7 +63,7 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
 
   .ds-input__label {
     font-size: var(--text-secondary);
-    color: var(--color-ink);
+    color: var(--color-ink-strong);
     font-weight: 500;
   }
 
@@ -62,7 +71,7 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
     font-family: var(--font-body);
     font-size: var(--text-body);
     color: var(--color-ink);
-    background-color: var(--color-bg);
+    background-color: var(--color-surface-raised);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
@@ -80,7 +89,11 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
     border-color: var(--color-muted);
   }
 
-  .ds-input__field:focus {
+  .ds-input__field:active:not([aria-invalid="true"]) {
+    border-color: color-mix(in oklch, var(--color-accent) 35%, var(--color-line));
+  }
+
+  .ds-input__field:focus-visible {
     outline: none;
     border-color: var(--color-focus);
     box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-focus) 25%, transparent);
@@ -90,7 +103,7 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
     border-color: var(--color-error);
   }
 
-  .ds-input__field[aria-invalid="true"]:focus {
+  .ds-input__field[aria-invalid="true"]:focus-visible {
     box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-error) 20%, transparent);
   }
 

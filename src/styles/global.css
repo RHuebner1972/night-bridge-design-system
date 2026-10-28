@@ -3,31 +3,33 @@
 	themes: false;
 }
 
+@import "./shell.css";
+
 /*
- * NEUTRAL CANVAS — the design system starts here.
- * Every token below is intentionally grey/system-default. This is the blank
- * slate: define your palette, type, and feel live, and the showcase reskins.
- * @theme registers tokens as Tailwind utilities; :root mirrors the colors so
- * components can read them via var() in scoped styles.
+ * Dark Boutique Bridge — token source of truth.
+ * @theme registers Tailwind utilities; :root mirrors colors for var() in components.
  */
 @theme {
-	--font-display: ui-serif, Georgia, "Times New Roman", serif;
-	--font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+	--font-display: "Sora", system-ui, -apple-system, sans-serif;
+	--font-body: "Sora", system-ui, -apple-system, sans-serif;
 
-	--color-bg: oklch(1 0 0);
-	--color-surface: oklch(0.975 0 0);
-	--color-ink: oklch(0.2 0 0);
-	--color-muted: oklch(0.48 0 0);
-	--color-line: oklch(0.88 0 0);
-	--color-primary: oklch(0.42 0 0);
-	--color-primary-hover: oklch(0.36 0 0);
-	--color-accent: oklch(0.72 0 0);
-	--color-accent-ink: oklch(0.28 0 0);
-	--color-coral: oklch(0.58 0 0);
-	--color-green: oklch(0.46 0 0);
-	--color-success: oklch(0.48 0 0);
-	--color-error: oklch(0.52 0 0);
-	--color-focus: oklch(0.55 0 0);
+	--color-bg: oklch(0.16 0.04 250);
+	--color-surface: oklch(0.21 0.035 248);
+	--color-surface-raised: oklch(0.24 0.04 248);
+	--color-ink: oklch(0.96 0.015 250);
+	--color-ink-strong: oklch(0.98 0.012 250);
+	--color-ink-soft: oklch(0.84 0.025 250);
+	--color-muted: oklch(0.72 0.03 250);
+	--color-line: oklch(0.32 0.03 250);
+	--color-primary: oklch(0.72 0.12 70);
+	--color-primary-hover: oklch(0.62 0.11 65);
+	--color-accent: oklch(0.68 0.11 185);
+	--color-accent-ink: oklch(0.16 0.04 250);
+	--color-coral: oklch(0.65 0.14 45);
+	--color-green: oklch(0.58 0.12 155);
+	--color-success: oklch(0.58 0.12 155);
+	--color-error: oklch(0.58 0.14 25);
+	--color-focus: oklch(0.72 0.1 185);
 
 	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;
@@ -68,20 +70,23 @@
 	}
 
 	:root {
-		--color-bg: oklch(1 0 0);
-		--color-surface: oklch(0.975 0 0);
-		--color-ink: oklch(0.2 0 0);
-		--color-muted: oklch(0.48 0 0);
-		--color-line: oklch(0.88 0 0);
-		--color-primary: oklch(0.42 0 0);
-		--color-primary-hover: oklch(0.36 0 0);
-		--color-accent: oklch(0.72 0 0);
-		--color-accent-ink: oklch(0.28 0 0);
-		--color-coral: oklch(0.58 0 0);
-		--color-green: oklch(0.46 0 0);
-		--color-success: oklch(0.48 0 0);
-		--color-error: oklch(0.52 0 0);
-		--color-focus: oklch(0.55 0 0);
+		--color-bg: oklch(0.16 0.04 250);
+		--color-surface: oklch(0.21 0.035 248);
+		--color-surface-raised: oklch(0.24 0.04 248);
+		--color-ink: oklch(0.96 0.015 250);
+		--color-ink-strong: oklch(0.98 0.012 250);
+		--color-ink-soft: oklch(0.84 0.025 250);
+		--color-muted: oklch(0.72 0.03 250);
+		--color-line: oklch(0.32 0.03 250);
+		--color-primary: oklch(0.72 0.12 70);
+		--color-primary-hover: oklch(0.62 0.11 65);
+		--color-accent: oklch(0.68 0.11 185);
+		--color-accent-ink: oklch(0.16 0.04 250);
+		--color-coral: oklch(0.65 0.14 45);
+		--color-green: oklch(0.58 0.12 155);
+		--color-success: oklch(0.58 0.12 155);
+		--color-error: oklch(0.58 0.14 25);
+		--color-focus: oklch(0.72 0.1 185);
 	}
 
 	html {
@@ -91,23 +96,29 @@
 		background-color: var(--color-bg);
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
+		scroll-behavior: smooth;
 	}
 
 	body {
 		margin: 0;
 		min-height: 100dvh;
-		line-height: 1.6;
+		line-height: 1.65;
+	}
+
+	footer {
+		color: var(--color-ink);
 	}
 
 	h1,
 	h2,
 	h3 {
 		font-family: var(--font-display);
-		font-weight: 500;
+		font-weight: 600;
 		line-height: 1.15;
 		text-wrap: balance;
 		letter-spacing: -0.02em;
 		margin: 0;
+		color: var(--color-ink-strong);
 	}
 
 	p {
@@ -117,8 +128,13 @@
 	}
 
 	a {
-		color: var(--color-primary);
+		color: var(--color-accent);
 		text-underline-offset: 0.15em;
+		transition: color var(--duration-fast) var(--ease-out-quart);
+	}
+
+	a:hover {
+		color: oklch(0.78 0.12 185);
 	}
 
 	a:focus-visible,
@@ -128,9 +144,14 @@
 	textarea:focus-visible {
 		outline: 2px solid var(--color-focus);
 		outline-offset: 3px;
+		box-shadow: 0 0 12px color-mix(in oklch, var(--color-focus) 45%, transparent);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+
 		*,
 		*::before,
 		*::after {
@@ -155,32 +176,42 @@
 		color: var(--color-muted);
 	}
 
-	.text-caption {
+	/*
+	 * Type scale utilities use the `type-*` prefix so they never collide with
+	 * Tailwind/DaisyUI `text-*` color utilities (e.g. `.text-secondary`).
+	 */
+	.type-caption {
 		font-size: var(--text-caption);
 		line-height: 1.5;
+		color: var(--color-ink);
 	}
 
-	.text-secondary {
+	.type-secondary {
 		font-size: var(--text-secondary);
+		color: var(--color-ink);
 	}
 
-	.text-body {
+	.type-body {
 		font-size: var(--text-body);
+		color: var(--color-ink);
 	}
 
-	.text-subheading {
+	.type-subheading {
 		font-size: var(--text-subheading);
 		line-height: 1.4;
+		color: var(--color-ink-strong);
 	}
 
-	.text-heading {
+	.type-heading {
 		font-size: var(--text-heading);
 		line-height: 1.25;
+		color: var(--color-ink-strong);
 	}
 
-	.text-display {
+	.type-display {
 		font-size: var(--text-display);
 		line-height: 1.08;
 		letter-spacing: -0.03em;
+		color: var(--color-ink-strong);
 	}
 }

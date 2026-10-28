@@ -57,8 +57,15 @@ const Tag = href ? "a" : "button";
     transition:
       background-color var(--duration-fast) var(--ease-out-quart),
       border-color var(--duration-fast) var(--ease-out-quart),
-      color var(--duration-fast) var(--ease-out-quart);
+      color var(--duration-fast) var(--ease-out-quart),
+      box-shadow var(--duration-fast) var(--ease-out-quart),
+      transform var(--duration-fast) var(--ease-out-quart);
     white-space: nowrap;
+  }
+
+  .ds-btn:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
   }
 
   .ds-btn:disabled,
@@ -84,35 +91,49 @@ const Tag = href ? "a" : "button";
     padding: var(--space-md) var(--space-lg);
   }
 
+  .ds-btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-btn:active:not(:disabled) {
+      transform: none;
+    }
+  }
+
   /* Variants */
   .ds-btn--primary {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
-    color: var(--color-bg);
+    color: var(--color-accent-ink);
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-primary) 40%, transparent);
   }
 
   .ds-btn--primary:hover:not(:disabled) {
     background-color: var(--color-primary-hover);
     border-color: var(--color-primary-hover);
+    box-shadow: 0 0 20px color-mix(in oklch, var(--color-primary) 35%, transparent);
   }
 
   .ds-btn--secondary {
-    background-color: var(--color-surface);
-    border-color: var(--color-line);
+    background-color: var(--color-surface-raised);
+    border-color: color-mix(in oklch, var(--color-accent) 35%, var(--color-line));
     color: var(--color-ink);
   }
 
   .ds-btn--secondary:hover:not(:disabled) {
-    background-color: var(--color-line);
+    border-color: var(--color-accent);
+    background-color: color-mix(in oklch, var(--color-accent) 12%, var(--color-surface));
   }
 
   .ds-btn--ghost {
     background-color: transparent;
     border-color: transparent;
-    color: var(--color-primary);
+    color: var(--color-ink);
   }
 
   .ds-btn--ghost:hover:not(:disabled) {
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-raised);
+    border-color: var(--color-line);
   }
 </style>

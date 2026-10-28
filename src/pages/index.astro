@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/shell/SiteHeader.astro";
+import SiteFooter from "../components/shell/SiteFooter.astro";
+import RouteViz from "../components/shell/RouteViz.astro";
 import Button from "../components/ds/Button.astro";
 import Card from "../components/ds/Card.astro";
 import Badge from "../components/ds/Badge.astro";
@@ -8,65 +11,47 @@ import ColorSwatch from "../components/ds/ColorSwatch.astro";
 import Section from "../components/ds/Section.astro";
 
 const swatches = [
-  { name: "Background",     token: "--color-bg" },
-  { name: "Surface",        token: "--color-surface" },
-  { name: "Ink",            token: "--color-ink" },
-  { name: "Muted",          token: "--color-muted" },
-  { name: "Line",           token: "--color-line" },
-  { name: "Primary",        token: "--color-primary" },
-  { name: "Accent",         token: "--color-accent" },
-  { name: "Coral",          token: "--color-coral" },
-  { name: "Green",          token: "--color-green" },
+  { name: "Abyss background", token: "--color-bg" },
+  { name: "Panel surface", token: "--color-surface" },
+  { name: "Ink", token: "--color-ink" },
+  { name: "Muted", token: "--color-muted" },
+  { name: "Warm primary", token: "--color-primary" },
+  { name: "Cool accent", token: "--color-accent" },
+  { name: "Instrument focus", token: "--color-focus" },
 ];
 
 const typeRows = [
-  { label: "Display",    cls: "text-display",    tag: "span", sample: "The quick brown fox" },
-  { label: "Heading",    cls: "text-heading",    tag: "span", sample: "The quick brown fox jumps" },
-  { label: "Subheading", cls: "text-subheading", tag: "span", sample: "The quick brown fox jumps over the lazy dog" },
-  { label: "Body",       cls: "text-body",       tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
-  { label: "Secondary",  cls: "text-secondary",  tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
-  { label: "Caption",    cls: "text-caption",    tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
+  { label: "Display", cls: "type-display", sample: "Chart your course" },
+  { label: "Heading", cls: "type-heading", sample: "Quiet bridge, clear panels" },
+  { label: "Body", cls: "type-body", sample: "Welcome aboard. Your route is synced and the night sea is calm." },
+  { label: "Secondary", cls: "type-secondary", sample: "Secondary copy stays readable without shouting." },
+  { label: "Caption", cls: "type-caption", sample: "Metadata · labels" },
 ];
 ---
 
-<BaseLayout title="Design System" description="A neutral, token-driven design system showcase.">
+<BaseLayout title="Night Bridge · Design System" description="Dark Boutique Bridge — calm exploration UI with warm-earth and cool-teal accents.">
 
-  <!-- Sticky header -->
-  <header class="site-header">
-    <div class="site-header__inner">
-      <span class="site-header__wordmark">Design System</span>
-      <nav class="site-header__nav" aria-label="Page sections">
-        <a href="#colors">Colors</a>
-        <a href="#type">Type</a>
-        <a href="#components">Components</a>
-      </nav>
-    </div>
-  </header>
+  <SiteHeader />
 
-  <main class="page-main">
+  <main class="page-main" id="main-content">
 
-    <!-- Hero -->
-    <div class="hero">
-      <div class="hero__inner">
-        <p class="hero__caption text-caption text-muted">Neutral Canvas</p>
-        <h1 class="text-display hero__headline">
-          Tokens first.<br />Reskin everything.
-        </h1>
-        <p class="hero__lede text-secondary text-muted">
-          A blank-slate design system. Change the tokens in <code>global.css</code>
-          and every component reskins instantly — no component code touched.
-        </p>
-        <div class="hero__actions">
-          <Button variant="primary" size="lg" href="#components">Browse components</Button>
-          <Button variant="ghost" size="lg" href="#colors">See tokens</Button>
+    <section class="hero" id="overview">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <h1 class="type-display hero__headline">
+            Calm depth.<br />Warm instruments.
+          </h1>
+          <p class="hero__lede type-secondary">
+            Edit <span class="inline-code">src/styles/global.css</span> — sections below reskin instantly.
+          </p>
         </div>
+        <RouteViz />
       </div>
-    </div>
+    </section>
 
     <div class="content-wrap">
 
-      <!-- Colors -->
-      <Section id="colors" heading="Color tokens" lede="Nine semantic color tokens cover every UI surface. Swap them and the entire system follows.">
+      <Section id="colors" heading="Color tokens">
         <div class="swatch-grid">
           {swatches.map((s) => (
             <ColorSwatch name={s.name} token={s.token} />
@@ -74,76 +59,62 @@ const typeRows = [
         </div>
       </Section>
 
-      <!-- Type -->
-      <Section id="type" heading="Type scale" lede="Six steps built on clamp() and rem. Display through Caption, all token-driven.">
+      <Section id="type" heading="Type scale">
         <div class="type-panel">
           {typeRows.map((row) => (
             <div class="type-row">
-              <span class="type-row__label text-caption text-muted">{row.label}</span>
+              <span class="type-row__label type-caption text-muted">{row.label}</span>
               <span class={`type-row__sample font-display ${row.cls}`}>{row.sample}</span>
             </div>
           ))}
         </div>
       </Section>
 
-      <!-- Components -->
-      <Section id="components" heading="Components" lede="Four lanes: actions, status badges, form inputs, and content surfaces.">
+      <Section id="components" heading="Components">
         <div class="component-lanes">
 
-          <!-- Actions -->
           <div class="lane">
             <p class="lane__heading">Actions</p>
             <div class="lane__items">
               <Button variant="primary">Primary</Button>
               <Button variant="secondary">Secondary</Button>
               <Button variant="ghost">Ghost</Button>
-              <Button variant="primary" disabled>Disabled</Button>
             </div>
           </div>
 
-          <!-- Status -->
           <div class="lane">
             <p class="lane__heading">Status</p>
             <div class="lane__items lane__items--wrap">
-              <Badge tone="neutral">Neutral</Badge>
-              <Badge tone="ocean">Ocean</Badge>
-              <Badge tone="gold">Gold</Badge>
-              <Badge tone="green">Green</Badge>
-              <Badge tone="coral">Coral</Badge>
+              <Badge tone="ocean">Underway</Badge>
+              <Badge tone="gold">Priority</Badge>
             </div>
           </div>
 
-          <!-- Forms -->
           <div class="lane">
             <p class="lane__heading">Forms</p>
             <div class="lane__items lane__items--col">
               <Input
                 id="demo-name"
-                label="Full name"
+                label="Guest name"
                 type="text"
-                placeholder="Jane Smith"
-                helper="Used on your public profile."
+                placeholder="Alex Rivera"
               />
               <Input
                 id="demo-email"
-                label="Email address"
+                label="Contact email"
                 type="email"
-                placeholder="jane@example.com"
-                error="That email address is already taken."
+                placeholder="alex@example.com"
+                error="Example error — not live validation."
+                errorSpecimen
               />
             </div>
           </div>
 
-          <!-- Surfaces -->
           <div class="lane">
             <p class="lane__heading">Surfaces</p>
             <div class="lane__items lane__items--col">
-              <Card title="Default card">
-                This is the default card. It uses <code>--radius-lg</code> and
-                <code>--color-line</code> for its border.
-              </Card>
-              <Card title="Compact card" compact>
-                Same component, <code>compact</code> prop reduces padding.
+              <Card title="Panel card">
+                Raised surface on <span class="inline-code">--color-surface</span>.
               </Card>
             </div>
           </div>
@@ -151,140 +122,79 @@ const typeRows = [
         </div>
       </Section>
 
-      <!-- For agents -->
-      <Section heading="For agents" lede="AI tools and automated agents can consume this design system via structured endpoints.">
-        <p class="agent-intro text-secondary">
-          The following machine-readable files describe the complete token set, component API,
-          and usage conventions. Point your agent at these before generating UI.
+      <Section id="agents" heading="For agents">
+        <p class="type-caption agent-example text-muted">
+          Product example: <a href="/coaching">Harbor Chapter</a>
         </p>
-        <ul class="agent-links">
-          <li>
-            <a href="/tokens.json"><code>/tokens.json</code></a>
-            — All design tokens as a flat JSON object, keyed by CSS variable name.
-          </li>
-          <li>
-            <a href="/system.md"><code>/system.md</code></a>
-            — Markdown reference: token table, component props, usage rules.
-          </li>
-          <li>
-            <a href="/llms.txt"><code>/llms.txt</code></a>
-            — Plain-text summary in the <a href="https://llmstxt.org">llms.txt</a> convention
-            for LLM context windows.
-          </li>
-        </ul>
+        <nav class="agent-panel" aria-label="Agent endpoints">
+          <ul class="agent-links">
+            <li><a href="/tokens.json"><code>/tokens.json</code></a></li>
+            <li><a href="/system.md"><code>/system.md</code></a></li>
+            <li><a href="/llms.txt"><code>/llms.txt</code></a></li>
+          </ul>
+        </nav>
       </Section>
 
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <p class="text-caption text-muted">Design System — neutral canvas, token-driven. Change tokens, reskin everything.</p>
-  </footer>
+  <SiteFooter />
 
 </BaseLayout>
 
 <style>
-  /* ── Header ── */
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-sticky);
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .site-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 72rem;
-    margin: 0 auto;
-    padding: var(--space-md) var(--space-lg);
-  }
-
-  .site-header__wordmark {
-    font-family: var(--font-display);
-    font-size: var(--text-subheading);
-    font-weight: 500;
-    color: var(--color-ink);
-    letter-spacing: -0.01em;
-  }
-
-  .site-header__nav {
-    display: flex;
-    gap: var(--space-lg);
-  }
-
-  .site-header__nav a {
-    font-size: var(--text-secondary);
-    color: var(--color-muted);
-    text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out-quart);
-  }
-
-  .site-header__nav a:hover {
-    color: var(--color-ink);
-  }
-
-  /* ── Layout shells ── */
-  .page-main {
-    min-height: calc(100dvh - 4rem);
-  }
-
   .hero {
+    padding: clamp(var(--space-2xl), 8vw, var(--space-3xl)) var(--space-lg)
+      var(--space-2xl);
     border-bottom: 1px solid var(--color-line);
-    padding: var(--space-3xl) var(--space-lg);
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--color-accent) 8%, transparent),
+      transparent 45%
+    );
+    scroll-margin-top: 7.5rem;
   }
 
-  .hero__inner {
+  .hero__grid {
     max-width: 72rem;
     margin: 0 auto;
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 52rem) {
+    .hero__grid {
+      grid-template-columns: 1fr minmax(16rem, 28rem);
+    }
+  }
+
+  .hero__copy {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
   }
 
-  .hero__caption {
-    margin: 0;
-    max-width: none;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
   .hero__headline {
-    max-width: 18ch;
+    max-width: 14ch;
+    color: var(--color-ink-strong);
   }
 
   .hero__lede {
-    max-width: 52ch;
+    max-width: 42ch;
+    color: var(--color-ink-soft);
   }
 
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    align-items: center;
-  }
-
-  .content-wrap {
-    max-width: 72rem;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-  }
-
-  /* ── Color swatches ── */
   .swatch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
     gap: var(--space-md);
   }
 
-  /* ── Type specimen ── */
   .type-panel {
     background-color: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
@@ -296,6 +206,20 @@ const typeRows = [
     grid-template-columns: 7rem 1fr;
     align-items: baseline;
     gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .type-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  @media (max-width: 32rem) {
+    .type-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
   }
 
   .type-row__label {
@@ -304,28 +228,35 @@ const typeRows = [
   }
 
   .type-row__sample {
-    color: var(--color-ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: var(--color-ink-strong);
   }
 
-  /* ── Component lanes ── */
   .component-lanes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    grid-template-columns: 1fr;
     gap: var(--space-xl);
     align-items: start;
+  }
+
+  @media (min-width: 40rem) {
+    .component-lanes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .component-lanes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2xl) var(--space-xl);
+    }
   }
 
   .lane__heading {
     font-family: var(--font-body);
     font-size: var(--text-caption);
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: var(--color-muted);
-    margin: 0 0 var(--space-md) 0;
+    margin: 0 0 var(--space-sm) 0;
     max-width: none;
   }
 
@@ -338,57 +269,73 @@ const typeRows = [
 
   .lane__items--col {
     flex-direction: column;
+    width: 100%;
+    max-width: none;
   }
 
-  .lane__items--wrap {
-    flex-wrap: wrap;
+  @media (min-width: 40rem) {
+    .lane__items--col {
+      max-width: 24rem;
+    }
   }
 
-  /* ── Agent section ── */
-  .agent-intro {
-    margin-bottom: var(--space-md);
-    max-width: 60ch;
+  .agent-panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    max-width: 28rem;
+    margin-top: var(--space-sm);
+  }
+
+  .agent-example {
+    margin: 0;
+    max-width: none;
+  }
+
+  .agent-example a {
+    font-weight: 600;
   }
 
   .agent-links {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
-    padding-left: var(--space-lg);
+    gap: var(--space-md);
+    list-style: none;
+    padding: 0;
     margin: 0;
   }
 
   .agent-links li {
+    margin: 0;
+  }
+
+  .agent-links a {
     font-size: var(--text-secondary);
-    color: var(--color-muted);
+    font-weight: 500;
+    color: var(--color-accent);
+    text-decoration: none;
+    width: fit-content;
+  }
+
+  .agent-links a:hover {
+    color: oklch(0.78 0.12 185);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .agent-links a:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
   }
 
   .agent-links code {
     font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
-    font-size: var(--text-caption);
-    color: var(--color-ink);
-  }
-
-  /* ── Footer ── */
-  .site-footer {
-    border-top: 1px solid var(--color-line);
-    padding: var(--space-lg);
-    text-align: center;
-  }
-
-  .site-footer p {
-    margin: 0 auto;
-    max-width: none;
-  }
-
-  /* ── code inline ── */
-  code {
-    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
-    font-size: 0.875em;
-    color: var(--color-ink);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sm);
-    padding: 0.1em 0.35em;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
   }
 </style>

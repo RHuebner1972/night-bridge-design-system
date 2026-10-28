@@ -1,0 +1,67 @@
+---
+---
+
+<div class="journey-viz" role="img" aria-label="Dissertation timeline from proposal to defense with coaching checkpoints">
+  <div class="journey-viz__panel">
+    <div class="journey-viz__toolbar">
+      <span class="journey-viz__label type-caption">Your arc · PhD journey</span>
+    </div>
+    <svg class="journey-viz__svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="journeyBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="oklch(0.24 0.05 248)" />
+          <stop offset="100%" stop-color="oklch(0.18 0.04 250)" />
+        </linearGradient>
+      </defs>
+      <rect width="400" height="200" fill="url(#journeyBg)" rx="8"/>
+      <line x1="40" y1="120" x2="360" y2="120" stroke="oklch(0.32 0.03 250)" stroke-width="1"/>
+      <path
+        d="M40 120 C100 120, 120 80, 160 80 S240 60, 280 70 S340 90, 360 100"
+        fill="none"
+        stroke="oklch(0.68 0.11 185)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <circle cx="40" cy="120" r="5" fill="oklch(0.72 0.12 70)"/>
+      <circle cx="160" cy="80" r="4" fill="oklch(0.68 0.11 185)"/>
+      <circle cx="280" cy="70" r="4" fill="oklch(0.68 0.11 185)"/>
+      <circle cx="360" cy="100" r="5" fill="oklch(0.72 0.12 70)"/>
+      <text x="32" y="148" fill="oklch(0.72 0.03 250)" font-family="system-ui,sans-serif" font-size="9">Proposal</text>
+      <text x="148" y="68" fill="oklch(0.72 0.03 250)" font-family="system-ui,sans-serif" font-size="9">Chapters</text>
+      <text x="268" y="58" fill="oklch(0.72 0.03 250)" font-family="system-ui,sans-serif" font-size="9">Revision</text>
+      <text x="342" y="128" fill="oklch(0.72 0.03 250)" font-family="system-ui,sans-serif" font-size="9">Defense</text>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .journey-viz {
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .journey-viz__panel {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-surface);
+  }
+
+  .journey-viz__toolbar {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-line);
+    background-color: var(--color-surface-raised);
+  }
+
+  .journey-viz__label {
+    color: var(--color-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .journey-viz__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

@@ -1,0 +1,513 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CoachHeader from "../components/marketing/CoachHeader.astro";
+import JourneyViz from "../components/marketing/JourneyViz.astro";
+import Button from "../components/ds/Button.astro";
+import Card from "../components/ds/Card.astro";
+
+const steps = [
+  {
+    title: "Map the arc",
+    body: "You and a human coach clarify question, scope, and committee expectations — before any drafting sprint.",
+  },
+  {
+    title: "Structure with AI",
+    body: "Agents help outline chapters, spot gaps in argument, and prepare revision plans. You stay the author.",
+  },
+  {
+    title: "Sustain momentum",
+    body: "Weekly rhythms, accountable milestones, and calm check-ins when the middle years feel endless.",
+  },
+];
+
+const features = [
+  {
+    title: "Chapter studio",
+    body: "Outlines, reverse outlines, and argument maps tied to your sources — not generic essay prompts.",
+  },
+  {
+    title: "Committee-ready memos",
+    body: "Turn messy feedback into prioritized revision lists you can discuss with your chair.",
+  },
+  {
+    title: "Human office hours",
+    body: "Live coaching when you are stuck — the relationship that changes outcomes.",
+  },
+];
+---
+
+<BaseLayout
+  title="Harbor Chapter · AI-augmented dissertation coaching"
+  description="Human dissertation coaching with AI for structure, clarity, and momentum — not ghostwriting."
+>
+  <CoachHeader />
+
+  <main class="coach-main" id="main-content">
+    <section class="coach-hero" id="top">
+      <div class="coach-hero__grid">
+        <div class="coach-hero__copy">
+          <h1 class="type-display coach-hero__title">
+            Finish your dissertation without losing your voice.
+          </h1>
+          <p class="type-secondary coach-hero__lede">
+            Experienced coaches plus careful AI for structure and momentum — not ghostwriting.
+          </p>
+          <div class="coach-hero__actions">
+            <Button variant="secondary" size="lg" href="#how">See how it works</Button>
+          </div>
+        </div>
+        <JourneyViz />
+      </div>
+    </section>
+
+    <section class="coach-trust">
+      <ul class="coach-trust__list">
+        <li>You stay the author — AI never submits for you.</li>
+        <li>Coaches with doctoral experience.</li>
+        <li>Proposal through defense.</li>
+      </ul>
+    </section>
+
+    <section class="coach-section" id="how">
+      <div class="coach-section__head">
+        <h2 class="type-heading coach-section__title">How it works</h2>
+      </div>
+      <ol class="coach-steps">
+        {steps.map((step, i) => (
+          <li class="coach-steps__item">
+            <span class="coach-steps__num type-caption">{String(i + 1).padStart(2, "0")}</span>
+            <Card title={step.title}>{step.body}</Card>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="coach-section coach-section--split" id="ai">
+      <div class="coach-section__head">
+        <h2 class="type-heading coach-section__title">What AI does — and does not</h2>
+        <p class="type-secondary coach-section__lede">
+          Boundaries aligned with committee and IRB expectations.
+        </p>
+      </div>
+      <div class="coach-split">
+        <div class="coach-split__col">
+          <h3 class="type-subheading coach-split__heading">AI helps with</h3>
+          <ul class="coach-split__list">
+            <li>Outlines, reverse outlines, and gap analysis</li>
+            <li>Clarifying methods sections and limitation language</li>
+            <li>Revision plans from chair feedback</li>
+            <li>Scheduling nudges and progress snapshots</li>
+          </ul>
+        </div>
+        <div class="coach-split__col coach-split__col--muted">
+          <h3 class="type-subheading coach-split__heading">AI never</h3>
+          <ul class="coach-split__list">
+            <li>Writes findings, claims results, or fabricates citations</li>
+            <li>Replaces committee or advisor judgment</li>
+            <li>Submits chapters or proposals for you</li>
+            <li>Promises a timeline your program has not approved</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="coach-section" id="support">
+      <div class="coach-section__head">
+        <h2 class="type-heading coach-section__title">Support that matches the work</h2>
+      </div>
+      <div class="coach-features">
+        {features.map((f) => (
+          <Card title={f.title}>{f.body}</Card>
+        ))}
+      </div>
+    </section>
+
+    <section class="coach-cta" id="join">
+      <div class="coach-cta__inner">
+        <h2 class="type-heading coach-cta__title">Request early access</h2>
+        <p class="type-secondary coach-cta__lede">
+          Small pilot cohort — tell us your stage; we reply personally.
+        </p>
+        <p class="type-caption coach-form__note text-muted" id="waitlist-note">
+          Pilot only — nothing is sent to a server yet.
+        </p>
+        <form class="coach-form" id="waitlist-form" novalidate>
+          <label class="coach-form__field">
+            <span class="coach-form__label">Email</span>
+            <input
+              class="coach-form__input"
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="you@university.edu"
+            />
+          </label>
+          <label class="coach-form__field">
+            <span class="coach-form__label">Stage</span>
+            <select class="coach-form__input" name="stage" required>
+              <option value="">Select one</option>
+              <option value="proposal">Proposal / candidacy</option>
+              <option value="writing">Active writing</option>
+              <option value="revision">Revision / committee feedback</option>
+              <option value="defense">Defense prep</option>
+            </select>
+          </label>
+          <Button variant="primary" size="lg" type="submit">Join the waitlist</Button>
+        </form>
+        <div class="coach-form__success" id="waitlist-success" hidden>
+          <p class="type-secondary coach-form__success-text">
+            You are on the pilot list. We will reply personally — nothing was sent yet.
+          </p>
+          <Button variant="secondary" size="md" type="button" id="waitlist-reset">
+            Submit another response
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="coach-footer">
+    <p class="type-caption text-muted">
+      <a href="/">Night Bridge</a> design system ·
+      <a href="/#agents">Agent tokens</a>
+    </p>
+  </footer>
+</BaseLayout>
+
+<script>
+  function initWaitlistForm() {
+    const form = document.getElementById("waitlist-form");
+    const success = document.getElementById("waitlist-success");
+    const reset = document.getElementById("waitlist-reset");
+    const note = document.getElementById("waitlist-note");
+
+    if (!(form instanceof HTMLFormElement) || !(success instanceof HTMLElement)) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      form.hidden = true;
+      if (note) note.hidden = true;
+      success.hidden = false;
+      success.setAttribute("role", "status");
+    });
+
+    reset?.addEventListener("click", () => {
+      form.reset();
+      form.hidden = false;
+      if (note) note.hidden = false;
+      success.hidden = true;
+      success.removeAttribute("role");
+      form.querySelector('input[name="email"]')?.focus();
+    });
+  }
+
+  initWaitlistForm();
+  document.addEventListener("astro:page-load", initWaitlistForm);
+</script>
+
+<style>
+  .coach-main {
+    flex: 1;
+  }
+
+  .coach-hero {
+    padding: clamp(var(--space-2xl), 8vw, var(--space-3xl)) var(--space-lg);
+    border-bottom: 1px solid var(--color-line);
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--color-accent) 7%, transparent),
+      transparent 50%
+    );
+  }
+
+  .coach-hero__grid {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 52rem) {
+    .coach-hero__grid {
+      grid-template-columns: 1fr minmax(16rem, 26rem);
+    }
+  }
+
+  .coach-hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: flex-start;
+  }
+
+  .coach-hero__title {
+    max-width: 16ch;
+    color: var(--color-ink-strong);
+  }
+
+  .coach-hero__lede {
+    max-width: 46ch;
+    color: var(--color-ink-soft);
+  }
+
+  .coach-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .coach-trust {
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--color-line);
+    background-color: color-mix(in oklch, var(--color-surface) 50%, transparent);
+  }
+
+  .coach-trust__list {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  @media (min-width: 48rem) {
+    .coach-trust__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-lg) var(--space-2xl);
+    }
+  }
+
+  .coach-trust__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    font-size: var(--text-secondary);
+    color: var(--color-ink-soft);
+    max-width: 28rem;
+    padding: var(--space-sm) var(--space-md);
+    background-color: color-mix(in oklch, var(--color-surface) 65%, transparent);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+  }
+
+  .coach-trust__list li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: 0.45em;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+  }
+
+  .coach-hero,
+  .coach-section,
+  .coach-cta {
+    scroll-margin-top: 7.5rem;
+  }
+
+  .coach-section {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .coach-section__head {
+    margin-bottom: var(--space-xl);
+    max-width: 40rem;
+  }
+
+  .coach-section__title {
+    color: var(--color-ink-strong);
+    margin-bottom: var(--space-sm);
+  }
+
+  .coach-section__lede {
+    color: var(--color-ink-soft);
+  }
+
+  .coach-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 48rem) {
+    .coach-steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .coach-steps__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .coach-steps__num {
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .coach-split {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 40rem) {
+    .coach-split {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .coach-split__col {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .coach-split__col--muted {
+    border-color: color-mix(in oklch, var(--color-line) 100%, var(--color-error) 15%);
+  }
+
+  .coach-split__heading {
+    color: var(--color-ink-strong);
+    margin-bottom: var(--space-md);
+  }
+
+  .coach-split__list {
+    margin: 0;
+    padding-left: var(--space-lg);
+    color: var(--color-ink-soft);
+    font-size: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .coach-features {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 40rem) {
+    .coach-features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .coach-cta {
+    border-top: 1px solid var(--color-line);
+    background: linear-gradient(
+      180deg,
+      transparent,
+      color-mix(in oklch, var(--color-surface) 60%, transparent)
+    );
+    padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  }
+
+  .coach-cta__inner {
+    max-width: 32rem;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .coach-cta__title {
+    color: var(--color-ink-strong);
+  }
+
+  .coach-cta__lede {
+    color: var(--color-ink-soft);
+    max-width: 42ch;
+  }
+
+  .coach-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: left;
+  }
+
+  .coach-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .coach-form__label {
+    font-size: var(--text-caption);
+    font-weight: 600;
+    color: var(--color-ink-strong);
+  }
+
+  .coach-form__input {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    color: var(--color-ink);
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    min-height: 2.75rem;
+  }
+
+  .coach-form__input:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-color: var(--color-focus);
+  }
+
+  .coach-form__note {
+    max-width: none;
+    text-align: center;
+    margin: 0;
+  }
+
+  .coach-form__success {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background-color: var(--color-surface);
+    border: 1px solid color-mix(in oklch, var(--color-accent) 35%, var(--color-line));
+    border-radius: var(--radius-md);
+  }
+
+  .coach-form__success-text {
+    color: var(--color-ink-soft);
+    max-width: 38ch;
+    text-align: center;
+    margin: 0;
+  }
+
+  .coach-footer {
+    padding: var(--space-lg) var(--space-lg);
+    border-top: 1px solid var(--color-line);
+    text-align: center;
+    color: var(--color-ink);
+  }
+
+  .coach-footer a {
+    color: var(--color-accent);
+  }
+</style>

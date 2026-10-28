@@ -1,0 +1,306 @@
+---
+import Button from "../ds/Button.astro";
+
+const navItems = [
+  { href: "#how", label: "How it works", jumpLabel: "How" },
+  { href: "#ai", label: "AI role", jumpLabel: "AI role" },
+  { href: "#support", label: "Support", jumpLabel: "Support" },
+];
+
+const sectionIds = ["how", "ai", "support", "join"];
+---
+
+<header class="coach-header">
+  <div class="coach-header__inner">
+    <a class="coach-header__brand" href="#top">
+      <span class="coach-header__mark" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 20 L14 8 L24 16" stroke="url(#coachMark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="8" r="2.5" fill="var(--color-primary)"/>
+          <defs>
+            <linearGradient id="coachMark" x1="4" y1="20" x2="24" y2="8" gradientUnits="userSpaceOnUse">
+              <stop stop-color="var(--color-accent)"/>
+              <stop offset="1" stop-color="var(--color-primary)"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="coach-header__title">Harbor Chapter</span>
+    </a>
+    <nav class="coach-header__nav coach-header__nav--desktop" aria-label="Page sections">
+      <ul class="coach-header__nav-list">
+        {navItems.map((item) => (
+          <li>
+            <a
+              class="coach-header__link"
+              href={item.href}
+              data-section-nav={item.href.slice(1)}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a class="coach-header__cta" href="#join">Join the waitlist</a>
+  </div>
+
+  <nav class="coach-header__jump" aria-label="Jump to section">
+    <div class="coach-header__jump-scroll">
+      <ul class="coach-header__jump-list">
+        {navItems.map((item) => (
+          <li class="coach-header__jump-item">
+            <Button
+              variant="secondary"
+              size="sm"
+              href={item.href}
+              class="coach-header__jump-btn"
+              data-section-nav={item.href.slice(1)}
+            >
+              {item.jumpLabel}
+            </Button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script define:vars={{ sectionIds }}>
+  function setActiveSection(id) {
+    document.querySelectorAll("[data-section-nav]").forEach((link) => {
+      const el = link;
+      const match = el.dataset.sectionNav === id;
+      el.classList.toggle("is-active", match);
+      if (match) {
+        el.setAttribute("aria-current", "location");
+      } else {
+        el.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function initSectionNav() {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el) => Boolean(el));
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]?.target.id) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      {
+        rootMargin: "-22% 0px -55% 0px",
+        threshold: [0, 0.15, 0.35, 0.5],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    window.addEventListener("hashchange", () => {
+      const hash = window.location.hash.replace("#", "");
+      if (sectionIds.includes(hash)) {
+        setActiveSection(hash);
+      }
+    });
+
+    const hash = window.location.hash.replace("#", "");
+    if (hash && sectionIds.includes(hash)) {
+      setActiveSection(hash);
+    }
+  }
+
+  initSectionNav();
+  document.addEventListener("astro:page-load", initSectionNav);
+</script>
+
+<style>
+  .coach-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    border-bottom: 1px solid var(--color-line);
+    background-color: color-mix(in oklch, var(--color-surface) 92%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .coach-header__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .coach-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  .coach-header__brand:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  .coach-header__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-secondary);
+    color: var(--color-ink-strong);
+    letter-spacing: -0.02em;
+  }
+
+  .coach-header__nav--desktop {
+    flex: 1;
+    display: none;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  @media (min-width: 52rem) {
+    .coach-header__nav--desktop {
+      display: block;
+    }
+  }
+
+  .coach-header__nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs) var(--space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .coach-header__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-caption);
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    padding: var(--space-xs) var(--space-sm);
+    min-height: 2.75rem;
+    transition:
+      color var(--duration-normal) var(--ease-out-quart),
+      border-color var(--duration-normal) var(--ease-out-quart),
+      background-color var(--duration-normal) var(--ease-out-quart);
+  }
+
+  .coach-header__link:hover {
+    color: var(--color-ink-strong);
+    background-color: var(--color-surface-raised);
+    border-color: var(--color-line);
+  }
+
+  .coach-header__link:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .coach-header__link.is-active {
+    color: var(--color-ink-strong);
+    background-color: color-mix(in oklch, var(--color-accent) 14%, var(--color-surface));
+    border-color: color-mix(in oklch, var(--color-accent) 45%, var(--color-line));
+    box-shadow: inset 0 -2px 0 var(--color-accent);
+  }
+
+  .coach-header__cta {
+    margin-left: auto;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    color: var(--color-accent-ink);
+    background-color: var(--color-primary);
+    text-decoration: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .coach-header__cta:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .coach-header__cta:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  .coach-header__jump {
+    display: block;
+    width: 100%;
+    border-top: 1px solid color-mix(in oklch, var(--color-line) 80%, transparent);
+    background-color: color-mix(in oklch, var(--color-surface) 88%, transparent);
+  }
+
+  @media (min-width: 52rem) {
+    .coach-header__jump {
+      display: none;
+    }
+  }
+
+  .coach-header__jump-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .coach-header__jump-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--space-xs);
+    list-style: none;
+    margin: 0;
+    padding: var(--space-sm) var(--space-lg);
+    max-width: 72rem;
+    margin-inline: auto;
+    width: max-content;
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .coach-header__jump-item {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .coach-header__jump :global(a.coach-header__jump-btn.ds-btn) {
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .coach-header__jump :global(a.coach-header__jump-btn.ds-btn.is-active) {
+    color: var(--color-ink-strong);
+    background-color: color-mix(in oklch, var(--color-accent) 14%, var(--color-surface));
+    border-color: color-mix(in oklch, var(--color-accent) 45%, var(--color-line));
+    box-shadow: inset 0 -2px 0 var(--color-accent);
+  }
+</style>

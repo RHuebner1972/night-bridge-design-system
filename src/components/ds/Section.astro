@@ -28,6 +28,7 @@ const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
   .ds-section {
     padding-top: var(--space-2xl);
     padding-bottom: var(--space-2xl);
+    scroll-margin-top: 7.5rem;
   }
 
   .ds-section--tight {
@@ -43,18 +44,18 @@ const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
   }
 
   .ds-section__heading {
-    font-size: var(--text-subheading);
-    font-family: var(--font-body);
+    font-size: var(--text-heading);
+    font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-muted);
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--color-ink-strong);
     margin: 0;
   }
 
   .ds-section__lede {
     font-size: var(--text-secondary);
-    color: var(--color-muted);
+    color: var(--color-ink-soft);
     max-width: 55ch;
     margin: 0;
   }
