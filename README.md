@@ -21,7 +21,7 @@ npm run dev
 
 ## What's included
 
-- **Tokens** — `src/styles/global.css` (`@theme` + `:root`): abyss background, warm primary, cool accent, `type-*` typography utilities
+- **Tokens** — `src/styles/global.css` (`@theme` + `:root`): abyss background, warm primary, cool accent, IBM Plex Serif/Sans, `type-*` typography utilities
 - **Showcase** — `src/pages/index.astro`: color, type, and component galleries
 - **Components** — `src/components/ds/*` (Button, Card, Input, Badge, Section, …)
 - **Shell** — `src/components/shell/*` (header, footer, route viz)

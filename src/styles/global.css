@@ -10,8 +10,8 @@
  * @theme registers Tailwind utilities; :root mirrors colors for var() in components.
  */
 @theme {
-	--font-display: "Sora", system-ui, -apple-system, sans-serif;
-	--font-body: "Sora", system-ui, -apple-system, sans-serif;
+	--font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+	--font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
 
 	--color-bg: oklch(0.16 0.04 250);
 	--color-surface: oklch(0.21 0.035 248);
@@ -197,18 +197,21 @@
 	}
 
 	.type-subheading {
+		font-family: var(--font-display);
 		font-size: var(--text-subheading);
 		line-height: 1.4;
 		color: var(--color-ink-strong);
 	}
 
 	.type-heading {
+		font-family: var(--font-display);
 		font-size: var(--text-heading);
 		line-height: 1.25;
 		color: var(--color-ink-strong);
 	}
 
 	.type-display {
+		font-family: var(--font-display);
 		font-size: var(--text-display);
 		line-height: 1.08;
 		letter-spacing: -0.03em;
